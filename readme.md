@@ -8,7 +8,7 @@
  1. Clonar o repositório.
  2. Acessar o diretório do backend
 	  ``` bash
-	cd backend-nodejs/mars
+	cd backend-nodejs
 	```
 3. Instalar as dependências
 	  ``` bash
@@ -26,7 +26,7 @@ A documentação da API se encontra disponível em: https://app.swaggerhub.com/a
  1. Clonar o repositório.
  2. Acessar o diretório do backend
 	  ``` bash
-	cd frontend/mars
+	cd frontend
 	```
 3. Instalar as dependências
 	  ``` bash
