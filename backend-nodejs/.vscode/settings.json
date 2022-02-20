@@ -1,0 +1,17 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "SQLITE Database",
+            "database": "${workspaceFolder:mars}/services/database.db"
+        },
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "Database pasta incial",
+            "database": "${workspaceFolder:mars}/database.db"
+        }
+    ],
+    "sqltools.useNodeRuntime": true
+}
