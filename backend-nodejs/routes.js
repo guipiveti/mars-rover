@@ -9,7 +9,7 @@ routes.post('/api/v1/drive', celebrate({
         command: Joi.string().required().min(0),
         currentX: Joi.number().required().min(0).max(5),
         currentY: Joi.number().required().min(0).max(5),
-        currentDirection: Joi.number().required().min(0).max(3),
+        currentDirection: Joi.string().required().valid('N', 'E', 'S', 'W', 'n', 'e', 's', 'w')
     })
 }), DriveController.move);
 

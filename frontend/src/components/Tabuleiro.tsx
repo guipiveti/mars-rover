@@ -6,7 +6,7 @@ import Table from 'react-bootstrap/Table';
 type TabuleiroProps = {
     currentX: number,
     currentY: number,
-    currentDirection: number,
+    currentDirection: string,
     fieldSizeX: number,
     fieldSizeY: number
  };
@@ -19,13 +19,13 @@ function Tabuleiro(props: TabuleiroProps): JSX.Element {
                 {[...Array(props?.fieldSizeX).keys()].map((x) => {
                     if (y === props.currentY && x === props.currentX) {
                         switch (props?.currentDirection) {
-                            case 0:
+                            case 'N':
                                 return <td key={x}><AiOutlineArrowUp /></td>
-                            case 1:
+                            case 'E':
                                 return <td key={x}><AiOutlineArrowRight /></td>
-                            case 2:
+                            case 'S':
                                 return <td key={x}><AiOutlineArrowDown /></td>
-                            case 3:
+                            case 'W':
                                 return <td key={x}><AiOutlineArrowLeft /></td>
                             default:
                                 return <td key={x}>X</td>

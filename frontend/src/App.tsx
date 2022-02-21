@@ -22,7 +22,7 @@ function App(): JSX.Element {
   // Estado inicial do tabuleiro
   const [currentX, setCurrentX] = useState(0);
   const [currentY, setCurrentY] = useState(0);
-  const [currentDirection, setCurrentDirection] = useState(0);
+  const [currentDirection, setCurrentDirection] = useState('N');
 
   // Generate random UUID
   const [uuid, setUuid] = useState(generateUniqueID());
@@ -51,7 +51,7 @@ function App(): JSX.Element {
     }
   }
   function handleReset() {
-    setCurrentDirection(0);
+    setCurrentDirection('N');
     setCurrentX(0);
     setCurrentY(0);
   }

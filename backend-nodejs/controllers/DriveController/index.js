@@ -1,16 +1,23 @@
-// const db_connection = require('../database/connection');
 const db = require("../../services/db.js");
+
+const Directions = {
+    N: 0,
+    E: 1,
+    S: 2,
+    W: 3
+  }
 
 module.exports = {
     async move(request, response) {
-        const { currentX: initialX, currentY: initialY, currentDirection: initialDirection } = request.body;
-        let { command } = request.body;
+        const { currentX: initialX, currentY: initialY } = request.body;
+        let { command, currentDirection: initialDirection } = request.body;
         const { uuid } = request.headers;
         command = command.toString().toUpperCase();
-
+        initialDirection = initialDirection.toString().toUpperCase();
+        
         let currentX = initialX;
         let currentY = initialY;
-        let currentDirection = initialDirection;
+        let currentDirection = Directions[initialDirection];
 
         let error_code = null;
 
@@ -80,17 +87,18 @@ module.exports = {
             if(error_code){break;}
         }
 
-        /* data = await db.raw(`
-            INSERT INTO commands_log
-            (user_id, original_x, original_y, original_direction, command, "timestamp", "valid", new_x, new_y, new_direction)
-            VALUES('${uuid}', ${initialX}, ${initialY}, ${initialDirection}, '${command}', null , ${error_code?false:true}, ${currentX}, ${currentY}, ${currentDirection});`); */
-
         if (!error_code) {
+            for (var key of Object.keys(Directions)) {
+                if(Directions[key] === currentDirection){
+                    currentDirection = key;
+                    break;
+                }
+            }
             await db.raw(`
                 INSERT INTO commands_log
                 (user_id, original_x, original_y, original_direction, command, "timestamp", "valid", new_x, new_y, new_direction)
                 VALUES(:uuid, :initialX, :initialY, :initialDirection, :command, :now , :valid, :currentX, :currentY, :currentDirection);`,
-                {now: new Date().toISOString(), uuid, initialX, initialY, initialDirection, command, valid: true,  currentX, currentY, currentDirection,});
+                {now: new Date().toISOString(), uuid, initialX, initialY, initialDirection, command, valid: true,  currentX, currentY, currentDirection});
 
             return response.json({ command, currentDirection, currentX, currentY });
         } else {
