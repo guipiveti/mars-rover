@@ -1,6 +1,7 @@
+import { Request, Response, Application } from 'express';
 const db = require("../../services/db.js");
 
-const Directions = {
+const Directions:any = {
     N: 0,
     E: 1,
     S: 2,
@@ -8,20 +9,20 @@ const Directions = {
   }
 
 module.exports = {
-    async move(request, response) {
+    async move(request: Request, response: Response) {
         const { currentX: initialX, currentY: initialY } = request.body;
         let { command, currentDirection: initialDirection } = request.body;
         const { uuid } = request.headers;
         command = command.toString().toUpperCase();
         initialDirection = initialDirection.toString().toUpperCase();
         
-        let currentX = initialX;
-        let currentY = initialY;
+        let currentX:number = initialX;
+        let currentY:number = initialY;
         let currentDirection = Directions[initialDirection];
 
         let error_code = null;
 
-        function rotateRobot(rotateRight) {
+        function rotateRobot(rotateRight: boolean) {
             if (rotateRight) {
                 currentDirection++;
             }
@@ -36,7 +37,7 @@ module.exports = {
             }
         }
 
-        for (var i = 0; i < command.length; i++) {
+        for (var i:number = 0; i < command.length; i++) {
             switch (command.charAt(i)) {
                 case 'M':
                     switch (currentDirection) {

@@ -1,14 +1,13 @@
-const knex = require('knex');
-
-const connection = knex({
+"use strict";
+var knex = require('knex');
+var connection = knex({
     client: 'sqlite3',
     connection: {
-      filename: './services/database.db'
+        filename: './src/services/database.db'
     },
     useNullAsDefault: true,
-  },);
-module.exports=connection;
-
+});
+module.exports = connection;
 /* async function connect() {
     if (global.connection)
         return global.connection.connect();
@@ -34,4 +33,4 @@ module.exports = {
         const res = await client.query(query);
         return res.rows;
     }
-} */
+} */ 
