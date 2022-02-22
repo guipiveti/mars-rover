@@ -19,10 +19,14 @@
 FROM node:14 AS ui-build
 WORKDIR /usr/src/app
 COPY ./ ./
-RUN npm install && npm run build
+#RUN npm install && npm run build
+RUN npm install
+COPY . .
+EXPOSE 3000
+CMD ["npm", "start"]
 
 # production environment
-FROM nginx
-COPY --from=build /app/build /usr/share/nginx/html
-EXPOSE 3333
-CMD [“nginx”, “-g”, “daemon off;”]
+# FROM nginx:1.16.0-alpine
+# COPY build ./build /usr/share/nginx/html/
+# EXPOSE 3333
+# CMD [“nginx”, “-g”, “daemon off;”]
