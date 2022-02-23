@@ -1,7 +1,7 @@
 FROM node:16
 
 # Create app directory
-WORKDIR /app
+WORKDIR /usr/src/app
 
 # Install app dependencies
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
@@ -9,16 +9,11 @@ WORKDIR /app
 COPY package*.json ./
 
 RUN npm install
-RUN npm install typescript
-RUN npm install @vscode/sqlite3
-RUN echo 'öi'
 # If you are building your code for production
 # RUN npm ci --only=production
-RUN npm run build
-RUN ECHO 'XAU'
-# Bundle app source
-COPY . . 
 
+# Bundle app source
+COPY . .
 
 EXPOSE 3333
-CMD [ "npm", "start" ]
+CMD [ "node", "server.js" ]

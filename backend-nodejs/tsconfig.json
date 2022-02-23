@@ -1,7 +1,6 @@
 {
     "compilerOptions": {
-      "outDir": "./built",
-      "allowJs": true,
+      "outDir": "./dist",
       "target": "es5",
       "strict": true,
       "allowSyntheticDefaultImports": true,     /* Allow default imports from modules with no default export. This does not affect code emit, just typechecking. */
