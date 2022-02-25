@@ -16,10 +16,9 @@ A documentação da API se encontra disponível em: https://app.swaggerhub.com/a
 ``` bash
 docker-compose -f mars.yml up -d
 ```
-O Docker Composer criará uma instância de banco de dados PostgreSQL com a tabela utilizada neste projeto e uma instância do backend. O banco é acessível utilizando a porta 5432 do locallhost com as credenciais user: **postgres** e senha **postgres**. O backend é acessível pelo localhost através da porta 3333.
+O Docker Composer criará uma instância de banco de dados PostgreSQL com a tabela utilizada neste projeto, uma instância do backend e uma instância do frontend. O banco é acessível utilizando a porta 5432 do locallhost com as credenciais user: **postgres** e senha **postgres**,  O backend é acessível pelo localhost através da porta 3333 e o front pela porta 3000.
 
-*O frontend ainda não está integrado ao Docker-Composer, por isso deve ser iniciado manualmente.
-### **Front-End**:
+### **Front-End** (Manualmente - Não recomendado) :
 ![Frontend](https://github.com/guipiveti/mars-rover/blob/main/imagens/frontendJPG.JPG?raw=true)
 ![Erro Inválido](https://github.com/guipiveti/mars-rover/blob/main/imagens/error.JPG?raw=true)
 ![Erro Colisão](https://github.com/guipiveti/mars-rover/blob/main/imagens/border_error.JPG?raw=true)

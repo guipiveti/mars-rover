@@ -29,18 +29,18 @@ services:
       - marsnetwork
     depends_on:
       - postgres
-#  frontend:
-#    build:
-#      dockerfile: ./frontend/frontend2.Dockerfile
-#      context: .
-#    image: mars-frontend-prod
-#    ports: 
-#      - '3000:3000'
-#    restart: always
-#    volumes:
-#      - local
-#    depends_on:
-#      - backend
+  frontend:
+    build:
+      dockerfile: ./frontend/frontend3.Dockerfile
+      context: .
+    image: mars-frontend-prod
+    ports: 
+      - '3000:3000'
+    restart: always
+    volumes:
+      - local
+    depends_on:
+      - backend
 networks:
   marsnetwork:
     driver: bridge
