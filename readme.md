@@ -21,7 +21,7 @@ O Docker Composer criará uma instância de banco de dados PostgreSQL com a tabe
 *O frontend ainda não está integrado ao Docker-Composer, por isso deve ser iniciado manualmente.
 ### **Front-End**:
 ![Frontend](https://github.com/guipiveti/mars-rover/blob/main/imagens/frontendJPG.JPG?raw=true)
-![Erro Inválido](https://github.com/guipiveti/mars-rover/blob/main/imagens/erro.JPG?raw=true)
+![Erro Inválido](https://github.com/guipiveti/mars-rover/blob/main/imagens/error.JPG?raw=true)
 ![Erro Colisão](https://github.com/guipiveti/mars-rover/blob/main/imagens/border_error.JPG?raw=true)
 1. Clonar o repositório.
 
