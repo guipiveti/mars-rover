@@ -1,6 +1,7 @@
-const db = require("../../services/db.js");
+import { Request, Response, Application } from 'express';
+import { query } from '../../services/db';
 
-const Directions = {
+const Directions:any = {
     N: 0,
     E: 1,
     S: 2,
@@ -8,20 +9,20 @@ const Directions = {
   }
 
 module.exports = {
-    async move(request, response) {
+    async move(request: Request, response: Response) {
         const { currentX: initialX, currentY: initialY } = request.body;
         let { command, currentDirection: initialDirection } = request.body;
         const { uuid } = request.headers;
         command = command.toString().toUpperCase();
         initialDirection = initialDirection.toString().toUpperCase();
         
-        let currentX = initialX;
-        let currentY = initialY;
+        let currentX:number = initialX;
+        let currentY:number = initialY;
         let currentDirection = Directions[initialDirection];
 
         let error_code = null;
 
-        function rotateRobot(rotateRight) {
+        function rotateRobot(rotateRight: boolean) {
             if (rotateRight) {
                 currentDirection++;
             }
@@ -36,7 +37,7 @@ module.exports = {
             }
         }
 
-        for (var i = 0; i < command.length; i++) {
+        for (var i:number = 0; i < command.length; i++) {
             switch (command.charAt(i)) {
                 case 'M':
                     switch (currentDirection) {
@@ -94,11 +95,10 @@ module.exports = {
                     break;
                 }
             }
-            await db.raw(`
-                INSERT INTO commands_log
+
+            await query(`INSERT INTO commands_log
                 (user_id, original_x, original_y, original_direction, command, "timestamp", "valid", new_x, new_y, new_direction)
-                VALUES(:uuid, :initialX, :initialY, :initialDirection, :command, :now , :valid, :currentX, :currentY, :currentDirection);`,
-                {now: new Date().toISOString(), uuid, initialX, initialY, initialDirection, command, valid: true,  currentX, currentY, currentDirection});
+                VALUES('${uuid}', ${initialX}, ${initialY}, '${initialDirection}', '${command}', '${new Date().toISOString()}', true, ${currentX}, ${currentY}, '${currentDirection}');`);
 
             return response.json({ command, currentDirection, currentX, currentY });
         } else {
@@ -115,11 +115,9 @@ module.exports = {
                     break;
             }
 
-            await db.raw(`
-            INSERT INTO commands_log
-            (user_id, original_x, original_y, original_direction, command, "timestamp", "valid", new_x, new_y, new_direction)
-            VALUES(:uuid, :initialX, :initialY, :initialDirection, :command, :now , :valid, :currentX, :currentY, :currentDirection);`,
-            {now: new Date().toISOString(), uuid, initialX, initialY, initialDirection, command, valid: false,  currentX: initialX, currentY: initialY, currentDirection: initialDirection,});
+            await query(`INSERT INTO commands_log
+                (user_id, original_x, original_y, original_direction, command, "timestamp", "valid", new_x, new_y, new_direction)
+                VALUES('${uuid}', ${initialX}, ${initialY}, '${initialDirection}', '${command}', '${new Date().toISOString()}', false, ${initialX}, ${initialY}, '${initialDirection}');`);
 
             return response.status(400).json({ message });
         }

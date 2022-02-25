@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var cors = require('cors');
+var express = require('express');
+var routes = require('./routes');
+var errors = require('celebrate').errors;
+var app = express();
+app.use(cors());
+app.use(express.json());
+app.use(routes);
+app.use(errors());
+module.exports = app;

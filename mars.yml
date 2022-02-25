@@ -1,0 +1,49 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5432:5432'
+    expose :
+      - 5432
+    networks:
+      - marsnetwork
+    volumes: 
+      - db:/var/lib/postgresql/data
+      - ./database/tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
+  backend:
+    build:
+      dockerfile: ./backend-nodejs/nodejs.Dockerfile
+      context: .
+    image: mars-backend-prod
+    ports: 
+      - '3333:3333'
+    restart: always
+    volumes:
+      - local
+    networks:
+      - marsnetwork
+    depends_on:
+      - postgres
+#  frontend:
+#    build:
+#      dockerfile: ./frontend/frontend2.Dockerfile
+#      context: .
+#    image: mars-frontend-prod
+#    ports: 
+#      - '3000:3000'
+#    restart: always
+#    volumes:
+#      - local
+#    depends_on:
+#      - backend
+networks:
+  marsnetwork:
+    driver: bridge
+volumes:
+  db:
+    driver: local
