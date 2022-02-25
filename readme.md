@@ -1,6 +1,7 @@
 
 # Robô Marciano!
-![Curiosity](https://github.com/guipiveti/mars-rover/blob/doker/imagens/curiosity.jpg?raw=true)
+![Estrutura do banco](https://github.com/guipiveti/mars-rover/blob/main/imagens/curiosity.jpg?raw=true)
+
 
  Projeto simulando o comando de um rover em marte. 
 
@@ -15,9 +16,13 @@ A documentação da API se encontra disponível em: https://app.swaggerhub.com/a
 ``` bash
 docker-compose -f mars.yml up -d
 ```
-O Docker Composer criará uma instância de banco de dados PostgreSQL com a tabela utilizada neste projeto e uma instância do backend.
+O Docker Composer criará uma instância de banco de dados PostgreSQL com a tabela utilizada neste projeto e uma instância do backend. O banco é acessível utilizando a porta 5432 do locallhost com as credenciais user: **postgres** e senha **postgres**. O backend é acessível pelo localhost através da porta 3333.
+
 *O frontend ainda não está integrado ao Docker-Composer, por isso deve ser iniciado manualmente.
 ### **Front-End**:
+![Frontend](https://github.com/guipiveti/mars-rover/blob/main/imagens/frontendJPG.JPG?raw=true)
+![Erro Inválido](https://github.com/guipiveti/mars-rover/blob/main/imagens/erro.JPG?raw=true)
+![Erro Colisão](https://github.com/guipiveti/mars-rover/blob/main/imagens/border_error.JPG?raw=true)
 1. Clonar o repositório.
 
 2. Acessar o diretório do frontend
@@ -35,6 +40,7 @@ npm install
 ```
 npm start
 ```
+4. Acessar o localhost:3000 navegador
 
 ### Back-End (Manualmente - Não recomendado) :
 
@@ -80,5 +86,5 @@ CREATE TABLE commands_log (
 ```
 3. Ajustar o arquivo de conexão com o banco (backend-nodejs/services/db.js) com as credencias de acesso ao banco, o  host e a porta.
 
-![Estrutura do banco](https://github.com/guipiveti/mars-rover/blob/doker/imagens/database.jpg?raw=true)
+![Estrutura do banco](https://github.com/guipiveti/mars-rover/blob/main/imagens/database.jpg?raw=true)
 
