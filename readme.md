@@ -1,6 +1,6 @@
 
 # Robô Marciano!
-![Estrutura do banco](https://github.com/guipiveti/mars-rover/blob/doker/imagens/curiosity.jpg?raw=true)
+![Curiosity](https://github.com/guipiveti/mars-rover/blob/doker/imagens/curiosity.jpg?raw=true)
 
  Projeto simulando o comando de um rover em marte. 
 
