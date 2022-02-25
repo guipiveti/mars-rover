@@ -137,9 +137,15 @@ module.exports = {
                                 break;
                             }
                         }
-                        return [4 /*yield*/, db.raw("\n                INSERT INTO commands_log\n                (user_id, original_x, original_y, original_direction, command, \"timestamp\", \"valid\", new_x, new_y, new_direction)\n                VALUES(:uuid, :initialX, :initialY, :initialDirection, :command, :now , :valid, :currentX, :currentY, :currentDirection);", { now: new Date().toISOString(), uuid: uuid, initialX: initialX, initialY: initialY, initialDirection: initialDirection, command: command, valid: true, currentX: currentX, currentY: currentY, currentDirection: currentDirection })];
+                        return [4 /*yield*/, db.query("INSERT INTO commands_log\n                                (user_id, original_x, original_y, original_direction, command, \"timestamp\", \"valid\", new_x, new_y, new_direction)\n                                VALUES(".concat(uuid, ", ").concat(initialX, ", ").concat(initialY, ", ").concat(initialDirection, ", ").concat(command, ", ").concat(new Date().toISOString(), ", true, ").concat(currentX, ", ").concat(currentY, ", ").concat(currentDirection, ");"))];
                     case 1:
                         _d.sent();
+                        /* await db.raw(`
+                            INSERT INTO commands_log
+                            (user_id, original_x, original_y, original_direction, command, "timestamp", "valid", new_x, new_y, new_direction)
+                            VALUES(:uuid, :initialX, :initialY, :initialDirection, :command, :now , :valid, :currentX, :currentY, :currentDirection);`,
+                            {now: new Date().toISOString(), uuid, initialX, initialY, initialDirection, command, valid: true,  currentX, currentY, currentDirection});
+             */
                         return [2 /*return*/, response.json({ command: command, currentDirection: currentDirection, currentX: currentX, currentY: currentY })];
                     case 2:
                         message = "";
@@ -154,9 +160,12 @@ module.exports = {
                                 message = "Erro desconhecido.";
                                 break;
                         }
-                        return [4 /*yield*/, db.raw("\n            INSERT INTO commands_log\n            (user_id, original_x, original_y, original_direction, command, \"timestamp\", \"valid\", new_x, new_y, new_direction)\n            VALUES(:uuid, :initialX, :initialY, :initialDirection, :command, :now , :valid, :currentX, :currentY, :currentDirection);", { now: new Date().toISOString(), uuid: uuid, initialX: initialX, initialY: initialY, initialDirection: initialDirection, command: command, valid: false, currentX: initialX, currentY: initialY, currentDirection: initialDirection, })];
-                    case 3:
-                        _d.sent();
+                        /* await db.raw(`
+                        INSERT INTO commands_log
+                        (user_id, original_x, original_y, original_direction, command, "timestamp", "valid", new_x, new_y, new_direction)
+                        VALUES(:uuid, :initialX, :initialY, :initialDirection, :command, :now , :valid, :currentX, :currentY, :currentDirection);`,
+                        {now: new Date().toISOString(), uuid, initialX, initialY, initialDirection, command, valid: false,  currentX: initialX, currentY: initialY, currentDirection: initialDirection,});
+             */
                         return [2 /*return*/, response.status(400).json({ message: message })];
                 }
             });

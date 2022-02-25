@@ -1,5 +1,5 @@
 import { Request, Response, Application } from 'express';
-const db = require("../../services/db.js");
+import { query } from '../../services/db';
 
 const Directions:any = {
     N: 0,
@@ -95,11 +95,10 @@ module.exports = {
                     break;
                 }
             }
-            await db.raw(`
-                INSERT INTO commands_log
+
+            await query(`INSERT INTO commands_log
                 (user_id, original_x, original_y, original_direction, command, "timestamp", "valid", new_x, new_y, new_direction)
-                VALUES(:uuid, :initialX, :initialY, :initialDirection, :command, :now , :valid, :currentX, :currentY, :currentDirection);`,
-                {now: new Date().toISOString(), uuid, initialX, initialY, initialDirection, command, valid: true,  currentX, currentY, currentDirection});
+                VALUES('${uuid}', ${initialX}, ${initialY}, '${initialDirection}', '${command}', '${new Date().toISOString()}', true, ${currentX}, ${currentY}, '${currentDirection}');`);
 
             return response.json({ command, currentDirection, currentX, currentY });
         } else {
@@ -116,11 +115,9 @@ module.exports = {
                     break;
             }
 
-            await db.raw(`
-            INSERT INTO commands_log
-            (user_id, original_x, original_y, original_direction, command, "timestamp", "valid", new_x, new_y, new_direction)
-            VALUES(:uuid, :initialX, :initialY, :initialDirection, :command, :now , :valid, :currentX, :currentY, :currentDirection);`,
-            {now: new Date().toISOString(), uuid, initialX, initialY, initialDirection, command, valid: false,  currentX: initialX, currentY: initialY, currentDirection: initialDirection,});
+            await query(`INSERT INTO commands_log
+                (user_id, original_x, original_y, original_direction, command, "timestamp", "valid", new_x, new_y, new_direction)
+                VALUES('${uuid}', ${initialX}, ${initialY}, '${initialDirection}', '${command}', '${new Date().toISOString()}', false, ${initialX}, ${initialY}, '${initialDirection}');`);
 
             return response.status(400).json({ message });
         }

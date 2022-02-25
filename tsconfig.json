@@ -2,7 +2,7 @@
     "compilerOptions": {
       "outDir": "./dist/",
       "target": "es5",
-      "types": ["node"],
+      "types": ["module"],
       "lib": [
         "dom",
         "dom.iterable",
@@ -18,9 +18,9 @@
       "module": "esnext",
       "moduleResolution": "node",
       "resolveJsonModule": true,
-      "jsx": "react",
-      "downlevelIteration": true,
-      "noImplicitAny": false
+      "isolatedModules": true,
+      "jsx": "react-jsx",
+      "downlevelIteration": true
     },
     "include": [
       "src",

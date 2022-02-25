@@ -1,18 +1,19 @@
-# syntax=docker/dockerfile:1
 FROM node:14-alpine AS base
-WORKDIR /app
+WORKDIR app
 
 # ------- Builder ----------
 FROM base AS builder
-COPY frontend/package*.json ./
+COPY ./backend-nodejs/package*.json ./backend-nodejs/tsconfig.json ./
 RUN npm install
-COPY frontend/. .
+COPY ./backend-nodejs/src ./src
 RUN npm run build
 RUN npm prune --production
+
 
 # -------- Release ---------
 FROM base AS release
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/dist ./dist
+USER node
 EXPOSE 3000
-CMD [ "node", "./dist/index.js" ]
+CMD [ "node", "./dist/server.js" ]

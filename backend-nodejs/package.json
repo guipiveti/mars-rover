@@ -5,7 +5,8 @@
   "main": "src/server.ts",
   "scripts": {
     "build": "rimraf ./dist & tsc",
-    "start": "node dist/server.js",
+    "start": "npm run build && node dist/server.js",
+    "tsc-start": "npm run build -- -w",
     "dev": "nodemon -L src/server.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -13,7 +14,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@types/express": "^4.17.13",
+    "@types/pg": "^8.6.4",
     "celebrate": "^15.0.1",
     "cors": "^2.8.5",
     "express": "^4.17.3",
@@ -21,6 +22,9 @@
     "pg": "^8.7.3"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.12",
+    "@types/knex": "^0.16.1",
+    "@types/express": "^4.17.13",
     "@types/node": "^17.0.19",
     "nodemon": "^2.0.15",
     "rimraf": "^3.0.2",

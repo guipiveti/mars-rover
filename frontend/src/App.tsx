@@ -1,5 +1,5 @@
+import React, {useState, useRef} from 'react';
 import axios from 'axios';
-import React, { useRef, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
@@ -12,7 +12,6 @@ import ToastContainer from 'react-bootstrap/ToastContainer';
 import './App.css';
 import Tabuleiro from './components/Tabuleiro';
 import { generateUniqueID } from './utils';
-
 
 function App(): JSX.Element {
   // Tamanho do tabuleiro
@@ -37,13 +36,13 @@ function App(): JSX.Element {
         currentX, currentY, currentDirection
       },
       { headers: { uuid } }
-    ).then(res => {
+    ).then((res: any) => {
       if (res.status === 200) {
         setCurrentDirection(res.data.currentDirection);
         setCurrentX(res.data.currentX);
         setCurrentY(res.data.currentY);
       }
-    }).catch(err => {
+    }).catch((err: any) => {
       setErrorMessage(err.response.data.message);
     });
     if (CommandInputRef?.current) {
